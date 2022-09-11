@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import {
+	NavigationProp,
+	RouteProp,
+	useNavigation,
+	useRoute,
+} from '@react-navigation/native';
 import CommentInput from 'components/CommentInput';
 import { blackPearl } from 'utils/colors';
 
@@ -11,14 +16,20 @@ import { MAX_WIDTH } from '../../utils/constants';
 
 import Reply from './Reply';
 
-type DetailPostStackProp = RouteProp<StackParamList, 'DetailPost'>;
+type DetailPostStackRouteProp = RouteProp<StackParamList, 'DetailPost'>;
+type DetailPostStackNavigationProp = NavigationProp<
+	StackParamList,
+	'DetailPost'
+>;
 
 interface Props {
-	route?: DetailPostStackProp;
+	route?: DetailPostStackRouteProp;
 }
 
 const DetailPostScreen: FC<Props> = () => {
-	const route = useRoute<DetailPostStackProp>();
+	const route = useRoute<DetailPostStackRouteProp>();
+	const navigation = useNavigation<DetailPostStackNavigationProp>();
+
 	const {
 		avatarUrl = '',
 		name = '',
@@ -32,13 +43,17 @@ const DetailPostScreen: FC<Props> = () => {
 		replies = [],
 	} = route.params;
 
+	const onAvatarPress = () => {
+		navigation.navigate('SignIn');
+	};
+
 	return (
 		<FlatList
 			style={styles.container}
 			showsVerticalScrollIndicator={false}
 			ListHeaderComponent={
 				<View>
-					<ControllerRow canGoBack={true} />
+					<ControllerRow canGoBack={true} onAvatarPress={onAvatarPress} />
 					<View style={styles.postDetailContainer}>
 						<Post
 							avatarUrl={avatarUrl}
