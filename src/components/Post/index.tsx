@@ -2,11 +2,11 @@ import React, { FC, memo } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '@metacraft/ui';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { StackParamList } from 'src/stack';
 
 import CommentInput from '../../components/CommentInput';
 import BellIcon from '../../components/icons/feather/Bell';
 import PinIcon from '../../components/icons/feather/Pin';
+import { StackParamList } from '../../stack';
 import { midnightDream } from '../../utils/colors';
 
 import SocialRow from './SocialRow';
